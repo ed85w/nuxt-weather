@@ -18,7 +18,7 @@
             {{ weather.name }}, {{ weather.sys.country }}
           </div>
           <div class="date">
-            {{ dateBuilder() }}
+            {{ todayBuilder() }}
           </div>
         </div>
 
@@ -30,6 +30,17 @@
             {{ weather.weather[0].main }}
           </div>
         </div>
+
+        <div class="container">
+          <div class="row">
+            <div v-for="forecast of dailyMidday" :key="forecast.id" class="col">
+              <h5>{{ theWeekday(forecast.dt) }}</h5>
+              <h5>{{ forecast.weather[0].main }}</h5>
+            </div>
+          </div>
+        </div>
+
+        <div />
       </div>
     </main>
   </div>
@@ -47,7 +58,19 @@ export default {
       url_base: 'https://api.openweathermap.org/data/2.5/',
       query: '',
       weather: {},
-      forecast: {}
+      forecasts: []
+    }
+  },
+  computed: {
+    // filter out midday weather for next 5 days
+    dailyMidday () {
+      const forecasts = this.forecasts
+      let today = new Date()
+      const dd = String(today.getDate()).padStart(2, '0')
+      const mm = String(today.getMonth() + 1).padStart(2, '0')
+      const yyyy = today.getFullYear()
+      today = yyyy + '-' + mm + '-' + dd
+      return forecasts.filter(forecast => forecast.dt_txt.slice(-8) === '12:00:00' && forecast.dt_txt.slice(10) !== today)
     }
   },
   methods: {
@@ -56,12 +79,13 @@ export default {
         axios.get(`${this.url_base}weather?q=${this.query}&units=metric&APPID=${this.api_key}`).then((response) => {
           this.weather = response.data
           axios.get(`${this.url_base}forecast?q=${this.query}&appid=${this.api_key}`).then((response2) => {
-            this.forecast = response2.data
+            this.forecasts = response2.data.list
+            // console.log(this.forecast.list))
           })
         })
       }
     },
-    dateBuilder () {
+    todayBuilder () {
       const d = new Date()
       const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
       const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
@@ -70,6 +94,12 @@ export default {
       const month = months[d.getMonth()]
       const year = d.getFullYear()
       return `${day} ${date} ${month} ${year}`
+    },
+    // function to get the weekday from unix
+    theWeekday (timestamp) {
+      const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+      const weekday = new Date(timestamp * 1000).getDay()
+      return days[weekday]
     }
   }
 
