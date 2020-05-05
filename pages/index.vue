@@ -33,10 +33,8 @@
 
         <div class="container">
           <div class="row">
-            <div v-for="forecast of dailyMidday" :key="forecast.id" class="col">
-              <h5>{{ theWeekday(forecast.dt) }}</h5>
-              <h5>{{ forecast.weather[0].main }}</h5>
-            </div>
+            <!-- forecast component  -->
+            <Forecast v-for="forecast of dailyMidday" :key="forecast.id" :forecast="forecast" />
           </div>
         </div>
 
@@ -49,9 +47,13 @@
 <script>
 
 import axios from 'axios'
+import Forecast from '../components/forecast'
 
 export default {
-  name: 'App',
+  // name: 'App',
+  components: {
+    Forecast
+  },
   data () {
     return {
       api_key: '840937906722893d2f73c00b953b1969',
@@ -94,12 +96,6 @@ export default {
       const month = months[d.getMonth()]
       const year = d.getFullYear()
       return `${day} ${date} ${month} ${year}`
-    },
-    // function to get the weekday from unix
-    theWeekday (timestamp) {
-      const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-      const weekday = new Date(timestamp * 1000).getDay()
-      return days[weekday]
     }
   }
 
