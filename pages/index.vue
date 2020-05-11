@@ -34,7 +34,12 @@
         <div class="container">
           <div class="row">
             <!-- forecast component  -->
-            <Forecast v-for="forecast of dailyMidday" :key="forecast.id" :forecast="forecast" />
+            <Forecast
+              v-for="forecast of dailyMidday"
+              :key="forecast.id"
+              :forecast="forecast"
+              :day="theWeekday(forecast.dt)"
+            />
           </div>
         </div>
 
@@ -96,6 +101,12 @@ export default {
       const month = months[d.getMonth()]
       const year = d.getFullYear()
       return `${day} ${date} ${month} ${year}`
+    },
+    // function to get the weekday from unix
+    theWeekday (timestamp) {
+      const days = ['Sun', 'Mon', 'Tues', 'Weds', 'Thurs', 'Fri', 'Sat']
+      const weekday = new Date(timestamp * 1000).getDay()
+      return days[weekday]
     }
   }
 
