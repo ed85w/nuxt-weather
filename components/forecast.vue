@@ -1,5 +1,5 @@
 <template>
-  <nuxt-link :to="{path: '/' + day}">
+  <nuxt-link :to="{path: '/' + day}" :forecast="forecast">
     <div class="col">
       <h5>{{ theWeekday(forecast.dt) }}</h5>
       <h5>{{ forecast.weather[0].main }}</h5>

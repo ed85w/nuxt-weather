@@ -7,7 +7,7 @@
           type="text"
           class="search-bar"
           placeholder="Search..."
-          @keypress="fetchWeather"
+          @keypress="fetchWeather($event)"
         > <!-- same as v-on:keypress -->
       </div>
 
@@ -41,9 +41,9 @@
               :day="theWeekday(forecast.dt)"
             />
           </div>
-        </div>
 
-        <div />
+          <div />
+        </div>
       </div>
     </main>
   </div>
@@ -51,7 +51,7 @@
 
 <script>
 
-import axios from 'axios'
+// import axios from 'axios'
 import Forecast from '../components/forecast'
 
 export default {
@@ -61,14 +61,14 @@ export default {
   },
   data () {
     return {
-      api_key: '840937906722893d2f73c00b953b1969',
-      url_base: 'https://api.openweathermap.org/data/2.5/',
       query: '',
-      weather: {},
       forecasts: []
     }
   },
   computed: {
+    weather () {
+      return this.$store.state.weather
+    },
     // filter out midday weather for next 5 days
     dailyMidday () {
       const forecasts = this.forecasts
@@ -81,15 +81,9 @@ export default {
     }
   },
   methods: {
-    fetchWeather (ev) {
-      if (ev.key === 'Enter') {
-        axios.get(`${this.url_base}weather?q=${this.query}&units=metric&APPID=${this.api_key}`).then((response) => {
-          this.weather = response.data
-          axios.get(`${this.url_base}forecast?q=${this.query}&appid=${this.api_key}`).then((response2) => {
-            this.forecasts = response2.data.list
-            // console.log(this.forecast.list))
-          })
-        })
+    fetchWeather (event) {
+      if (event.key === 'Enter') {
+        this.$store.dispatch('setWeather')
       }
     },
     todayBuilder () {

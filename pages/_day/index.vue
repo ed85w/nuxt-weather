@@ -1,15 +1,21 @@
 <template>
   <div>
     <h1>Hello</h1>
-    <h1>{{ data }}</h1>
+    <h1>{{ products }}</h1>
   </div>
 </template>
 
 <script>
 
 export default {
-  data () {
-    return {
+  // data () {
+  //   return {
+  //     weather: {}
+  //   }
+  // },
+  computed: {
+    products () {
+      return this.$store.state.products
     }
   }
 }
