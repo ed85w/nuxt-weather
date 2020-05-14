@@ -61,13 +61,15 @@ export default {
   },
   data () {
     return {
-      query: '',
-      forecasts: []
+      query: ''
     }
   },
   computed: {
     weather () {
       return this.$store.state.weather
+    },
+    forecasts () {
+      return this.$store.state.forecasts
     },
     // filter out midday weather for next 5 days
     dailyMidday () {
@@ -84,6 +86,7 @@ export default {
     fetchWeather (event) {
       if (event.key === 'Enter') {
         this.$store.dispatch('setWeather')
+        this.$store.dispatch('setForecasts')
       }
     },
     todayBuilder () {
