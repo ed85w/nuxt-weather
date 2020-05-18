@@ -39,6 +39,7 @@
               :key="forecast.id"
               :forecast="forecast"
               :day="theWeekday(forecast.dt)"
+              :date="forecast.dt_txt"
             />
           </div>
 
@@ -55,14 +56,8 @@
 import Forecast from '../components/forecast'
 
 export default {
-  // name: 'App',
   components: {
     Forecast
-  },
-  data () {
-    return {
-      query: ''
-    }
   },
   computed: {
     weather () {
@@ -70,6 +65,14 @@ export default {
     },
     forecasts () {
       return this.$store.state.forecasts
+    },
+    query: {
+      get () {
+        return this.$store.state.query
+      },
+      set (value) {
+        this.$store.commit('updateQuery', value)
+      }
     },
     // filter out midday weather for next 5 days
     dailyMidday () {
@@ -89,6 +92,10 @@ export default {
         this.$store.dispatch('setForecasts')
       }
     },
+    updateQuery (e) {
+      this.$store.commit('updateQuery', e.target.value)
+    },
+    // function to create todays date in reader friendly format
     todayBuilder () {
       const d = new Date()
       const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']

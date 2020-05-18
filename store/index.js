@@ -14,27 +14,19 @@ export const mutations = {
   },
   SET_FORECASTS (state, value) {
     state.forecasts = value.list
+  },
+  updateQuery (state, query) {
+    state.query = query
   }
 }
 
 export const actions = {
   async setWeather ({ commit }) {
-    const { data } = await axios.get('https://api.openweathermap.org/data/2.5/weather?q=leeds+&units=metric&APPID=840937906722893d2f73c00b953b1969')
+    const { data } = await axios.get(`${this.state.url_base}weather?q=${this.state.query}+&units=metric&APPID=${this.state.api_key}`)
     commit('SET_WEATHER', data)
   },
   async setForecasts ({ commit }) {
-    const { data } = await axios.get('https://api.openweathermap.org/data/2.5/forecast?q=leeds&appid=840937906722893d2f73c00b953b1969')
+    const { data } = await axios.get(`${this.state.url_base}forecast?q=${this.state.query}&appid=${this.state.api_key}`)
     commit('SET_FORECASTS', data)
   }
 }
-
-// export const mutations = {
-//   fetchWeatherData: (state, query) => {
-//     axios.get(`${state.url_base}weather?q=${query}+&units=metric&APPID=${state.api_key}`).then((response) => {
-//       state.weather = response.data
-//     })
-//   }
-// }
-
-// axios.get(`${this.url_base}forecast?q=${this.query}&appid=${this.api_key}`).then((response2) => {
-//   this.forecasts = response2.data.list
