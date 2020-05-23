@@ -21,12 +21,12 @@ export const mutations = {
 }
 
 export const actions = {
-  async setWeather ({ commit }) {
-    const { data } = await axios.get(`${this.state.url_base}weather?q=${this.state.query}+&units=metric&APPID=${this.state.api_key}`)
-    commit('SET_WEATHER', data)
-  },
   async setForecasts ({ commit }) {
     const { data } = await axios.get(`${this.state.url_base}forecast?q=${this.state.query}&appid=${this.state.api_key}`)
     commit('SET_FORECASTS', data)
+  },
+  async setWeather ({ commit }) {
+    const { data } = await axios.get(`${this.state.url_base}weather?q=${this.state.query}&units=metric&APPID=${this.state.api_key}`)
+    commit('SET_WEATHER', data)
   }
 }

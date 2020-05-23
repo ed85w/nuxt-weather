@@ -13,6 +13,10 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+    ],
+    // google places api script
+    script: [
+      { src: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDMRWX-MkF2AqSCEWej3m0vmn2WHQhDtes&libraries=places' }
     ]
   },
   /*

@@ -3,12 +3,13 @@
     <main>
       <div class="search-box">
         <input
+          id="queryInput"
           v-model="query"
           type="text"
           class="search-bar"
           placeholder="Search..."
-          @keypress="fetchWeather($event)"
-        > <!-- same as v-on:keypress -->
+          data-city-search
+        >
       </div>
 
       <div v-if="typeof weather.main != 'undefined'" class="weather-wrap">
@@ -66,6 +67,9 @@ export default {
     forecasts () {
       return this.$store.state.forecasts
     },
+    test () {
+      return this.$store.state.test
+    },
     query: {
       get () {
         return this.$store.state.query
@@ -85,13 +89,19 @@ export default {
       return forecasts.filter(forecast => forecast.dt_txt.slice(-8) === '12:00:00' && forecast.dt_txt.slice(10) !== today)
     }
   },
+  mounted () {
+    // google places for search input - fires api calls on place change
+    const searchElement = document.querySelector('[data-city-search]')
+    // eslint-disable-next-line no-undef
+    const searchBox = new google.maps.places.SearchBox(searchElement)
+    searchBox.addListener('places_changed', () => {
+      const place = searchBox.getPlaces()[0]
+      this.$store.commit('updateQuery', place.formatted_address)
+      this.$store.dispatch('setWeather')
+      this.$store.dispatch('setForecasts')
+    })
+  },
   methods: {
-    fetchWeather (event) {
-      if (event.key === 'Enter') {
-        this.$store.dispatch('setWeather')
-        this.$store.dispatch('setForecasts')
-      }
-    },
     updateQuery (e) {
       this.$store.commit('updateQuery', e.target.value)
     },

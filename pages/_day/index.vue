@@ -13,20 +13,6 @@
 <script>
 
 export default {
-  // props: {
-  //   // eslint-disable-next-line vue/require-default-prop
-  //   forecast: {
-  //     type: Object
-  //   },
-  //   day: {
-  //     type: String,
-  //     default: ''
-  //   },
-  //   date: {
-  //     type: String,
-  //     default: ''
-  //   }
-  // },
   computed: {
     forecasts () {
       return this.$store.state.forecasts
