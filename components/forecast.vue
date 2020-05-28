@@ -1,5 +1,5 @@
 <template>
-  <nuxt-link :to="{path: '/' + day + date.slice(0, 10)}">
+  <nuxt-link :to="{path: '/' + date.slice(0, 10)}">
     <div class="col">
       <h5>{{ theWeekday(forecast.dt) }}</h5>
       <h5>{{ forecast.weather[0].main }}</h5>

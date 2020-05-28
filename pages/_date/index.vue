@@ -19,12 +19,12 @@ export default {
     },
     thisDayForecasts () {
       const forecasts = this.forecasts
-      const theDate = this.$route.params.day.slice(-10)
+      const theDate = this.$route.params.date
       return forecasts.filter(forecast => forecast.dt_txt.slice(0, 10) === theDate)
     },
     thisDayMidday () {
       const forecasts = this.forecasts
-      const theDate = this.$route.params.day.slice(-10)
+      const theDate = this.$route.params.date
       return forecasts.filter(forecast => forecast.dt_txt.slice(0, 10) === theDate && forecast.dt_txt.slice(-8) === '12:00:00')
     }
   }
