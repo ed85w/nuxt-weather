@@ -29,6 +29,7 @@
           </div>
           <div class="weather">
             {{ weather.weather[0].main }}
+            <img :src="theIcon(weather.weather[0].icon)" alt="weather icon" width="500" height="600">
           </div>
         </div>
 
@@ -96,6 +97,7 @@ export default {
     const searchBox = new google.maps.places.SearchBox(searchElement)
     searchBox.addListener('places_changed', () => {
       const place = searchBox.getPlaces()[0]
+      // eslint-disable-next-line no-console
       this.$store.commit('updateQuery', place.formatted_address)
       this.$store.dispatch('setWeather')
       this.$store.dispatch('setForecasts')
@@ -121,6 +123,10 @@ export default {
       const days = ['Sun', 'Mon', 'Tues', 'Weds', 'Thurs', 'Fri', 'Sat']
       const weekday = new Date(timestamp * 1000).getDay()
       return days[weekday]
+    },
+    // build url for weather icons
+    theIcon (icon) {
+      return 'http://openweathermap.org/img/wn/' + icon + '@2x.png'
     }
   }
 
