@@ -32,11 +32,17 @@
             <img :src="theIcon(weather.weather[0].icon)" alt="weather icon" width="500" height="600">
           </div>
         </div>
+        <div v-if="typeof threeHourlyToday != 'undefined'">
+          <ForecastThreeHourly
+            v-for="forecast of threeHourlyToday"
+            :key="forecast.id"
+          />
+        </div>
 
         <div class="container">
           <div class="row">
-            <!-- forecast component  -->
-            <Forecast
+            <!-- daily forecast component  -->
+            <ForecastDaily
               v-for="forecast of dailyMidday"
               :key="forecast.id"
               :forecast="forecast"
@@ -55,11 +61,13 @@
 <script>
 
 // import axios from 'axios'
-import Forecast from '../components/forecast'
+import ForecastDaily from '../components/forecastDaily'
+import ForecastThreeHourly from '../components/forecastThreeHourly'
 
 export default {
   components: {
-    Forecast
+    ForecastDaily,
+    ForecastThreeHourly
   },
   computed: {
     weather () {
@@ -68,8 +76,11 @@ export default {
     forecasts () {
       return this.$store.state.forecasts
     },
-    test () {
-      return this.$store.state.test
+    threeHourlyToday () {
+      return this.$store.getters.threeHourlyToday
+    },
+    dailyMidday () {
+      return this.$store.getters.dailyMidday
     },
     query: {
       get () {
@@ -78,16 +89,6 @@ export default {
       set (value) {
         this.$store.commit('updateQuery', value)
       }
-    },
-    // filter out midday weather for next 5 days
-    dailyMidday () {
-      const forecasts = this.forecasts
-      let today = new Date()
-      const dd = String(today.getDate()).padStart(2, '0')
-      const mm = String(today.getMonth() + 1).padStart(2, '0')
-      const yyyy = today.getFullYear()
-      today = yyyy + '-' + mm + '-' + dd
-      return forecasts.filter(forecast => forecast.dt_txt.slice(-8) === '12:00:00' && forecast.dt_txt.slice(10) !== today)
     }
   },
   mounted () {
@@ -99,6 +100,7 @@ export default {
       const place = searchBox.getPlaces()[0]
       // eslint-disable-next-line no-console
       this.$store.commit('updateQuery', place.formatted_address)
+      this.$store.dispatch('setToday')
       this.$store.dispatch('setWeather')
       this.$store.dispatch('setForecasts')
     })
@@ -107,7 +109,7 @@ export default {
     updateQuery (e) {
       this.$store.commit('updateQuery', e.target.value)
     },
-    // function to create todays date in reader friendly format
+    // create todays date in reader friendly format
     todayBuilder () {
       const d = new Date()
       const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
@@ -118,7 +120,7 @@ export default {
       const year = d.getFullYear()
       return `${day} ${date} ${month} ${year}`
     },
-    // function to get the weekday from unix
+    // get the weekday from unix
     theWeekday (timestamp) {
       const days = ['Sun', 'Mon', 'Tues', 'Weds', 'Thurs', 'Fri', 'Sat']
       const weekday = new Date(timestamp * 1000).getDay()

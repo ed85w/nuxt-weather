@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  name: 'Forecast',
+  name: 'ForecastDaily',
   props: {
     // eslint-disable-next-line vue/require-default-prop
     forecast: {
