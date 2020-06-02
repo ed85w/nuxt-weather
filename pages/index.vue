@@ -1,71 +1,54 @@
 <template>
-  <div :class="typeof weather.main != 'undefined' && weather.main.temp > 16 ? 'warm' : ''">
-    <main>
-      <div class="search-box">
-        <input
-          id="queryInput"
-          v-model="query"
-          type="text"
-          class="search-bar"
-          placeholder="Search..."
-          data-city-search
-        >
-      </div>
+  <!-- <div class="container" :class="typeof weather.main != 'undefined' && weather.main.temp > 16 ? 'warm' : ''"> -->
+  <div class="container">
+    <searchBar />
 
-      <div v-if="typeof weather.main != 'undefined'" class="weather-wrap">
-        <!-- only displays if api call does not return undefined  -->
-        <div class="location-box">
-          <div class="location">
-            {{ weather.name }}, {{ weather.sys.country }}
-          </div>
-          <div class="date">
-            {{ todayBuilder() }}
-          </div>
-        </div>
-
+    <div v-if="typeof weather.main != 'undefined'" class="row weather-wrap">
+      <div class="col-12 col-md-8 test">
         <div class="weather-box">
           <div class="temp">
             {{ Math.round(weather.main.temp) }}°c
           </div>
           <div class="weather">
             {{ weather.weather[0].main }}
-            <img :src="theIcon(weather.weather[0].icon)" alt="weather icon" width="500" height="600">
+            <img :src="theIcon(weather.weather[0].icon)" alt="weather icon" width="200" height="200">
           </div>
-        </div>
-        <div v-if="typeof threeHourlyToday != 'undefined'">
-          <ForecastThreeHourly
-            v-for="forecast of threeHourlyToday"
-            :key="forecast.id"
-          />
-        </div>
-
-        <div class="container">
-          <div class="row">
-            <!-- daily forecast component  -->
-            <ForecastDaily
-              v-for="forecast of dailyMidday"
-              :key="forecast.id"
-              :forecast="forecast"
-              :day="theWeekday(forecast.dt)"
-              :date="forecast.dt_txt"
-            />
-          </div>
-
-          <div />
         </div>
       </div>
-    </main>
+      <div class="col-12 col-md-4 test">
+        <ForecastThreeHourly
+          v-for="forecast of threeHourlyToday"
+          :key="forecast.id"
+          :forecast="forecast"
+        />
+      </div>
+    </div>
+
+    <div class="row">
+      <nuxt-link to="/">
+        <h1>Today</h1>
+      </nuxt-link>
+      <!-- daily forecast component  -->
+      <ForecastDaily
+        v-for="forecast of dailyMidday"
+        :key="forecast.id"
+        :forecast="forecast"
+        :day="theWeekday(forecast.dt)"
+        :date="forecast.dt_txt"
+      />
+    </div>
   </div>
 </template>
 
 <script>
 
-// import axios from 'axios'
+import searchBar from '../components/searchBar'
 import ForecastDaily from '../components/forecastDaily'
 import ForecastThreeHourly from '../components/forecastThreeHourly'
 
 export default {
   components: {
+    searchBar,
     ForecastDaily,
     ForecastThreeHourly
   },
@@ -81,34 +64,34 @@ export default {
     },
     dailyMidday () {
       return this.$store.getters.dailyMidday
-    },
-    query: {
-      get () {
-        return this.$store.state.query
-      },
-      set (value) {
-        this.$store.commit('updateQuery', value)
-      }
     }
+    // query: {
+    //   get () {
+    //     return this.$store.state.query
+    //   },
+    //   set (value) {
+    //     this.$store.commit('updateQuery', value)
+    //   }
+    // }
   },
-  mounted () {
-    // google places for search input - fires api calls on place change
-    const searchElement = document.querySelector('[data-city-search]')
-    // eslint-disable-next-line no-undef
-    const searchBox = new google.maps.places.SearchBox(searchElement)
-    searchBox.addListener('places_changed', () => {
-      const place = searchBox.getPlaces()[0]
-      // eslint-disable-next-line no-console
-      this.$store.commit('updateQuery', place.formatted_address)
-      this.$store.dispatch('setToday')
-      this.$store.dispatch('setWeather')
-      this.$store.dispatch('setForecasts')
-    })
-  },
+  // mounted () {
+  //   // google places for search input - fires api calls on place change
+  //   const searchElement = document.querySelector('[data-city-search]')
+  //   // eslint-disable-next-line no-undef
+  //   const searchBox = new google.maps.places.SearchBox(searchElement)
+  //   searchBox.addListener('places_changed', () => {
+  //     const place = searchBox.getPlaces()[0]
+  //     // eslint-disable-next-line no-console
+  //     this.$store.commit('updateQuery', place.formatted_address)
+  //     this.$store.dispatch('setToday')
+  //     this.$store.dispatch('setWeather')
+  //     this.$store.dispatch('setForecasts')
+  //   })
+  // },
   methods: {
-    updateQuery (e) {
-      this.$store.commit('updateQuery', e.target.value)
-    },
+    // updateQuery (e) {
+    //   this.$store.commit('updateQuery', e.target.value)
+    // },
     // create todays date in reader friendly format
     todayBuilder () {
       const d = new Date()
@@ -136,6 +119,10 @@ export default {
 </script>
 
 <style>
+
+.test{
+  border: 1px solid red;
+}
 * {
   margin: 0;
   padding: 0;
@@ -158,31 +145,7 @@ main {
   padding: 25px;
   background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.75));
 }
-.search-box {
-  width: 100%;
-  margin-bottom: 30px;
-}
-.search-box .search-bar {
-  display: block;
-  width: 100%;
-  padding: 15px;
 
-  color: #313131;
-  font-size: 20px;
-  appearance: none;
-  border:none;
-  outline: none;
-  background: none;
-  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25);
-  background-color: rgba(255, 255, 255, 0.5);
-  border-radius: 0px 16px 0px 16px;
-  transition: 0.4s;
-}
-.search-box .search-bar:focus {
-  box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.25);
-  background-color: rgba(255, 255, 255, 0.75);
-  border-radius: 16px 0px 16px 0px;
-}
 .location-box .location {
   color: #FFF;
   font-size: 32px;

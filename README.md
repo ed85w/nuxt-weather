@@ -1,6 +1,8 @@
 # nuxt-weather
 
-> weather forecast app created in nuxt
+> weather forecast app created in nuxt/vue
+
+uses openweathermap api for weather data and google places api for locations list dropdown
 
 ## Build Setup
 

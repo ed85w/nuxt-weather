@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h4>Hello</h4>
+    <img :src="theIcon(forecast.weather[0].icon)" alt="weather icon" width="50" height="50">
   </div>
 </template>
 
@@ -11,11 +11,17 @@ export default {
     forecast: {
       type: Object
     }
+  },
+  methods: {
+    // build url for weather icons
+    theIcon (icon) {
+      return 'http://openweathermap.org/img/wn/' + icon + '@2x.png'
+    }
   }
 }
 
 </script>
 
-<style lang="sass">
+<style>
 
 </style>
