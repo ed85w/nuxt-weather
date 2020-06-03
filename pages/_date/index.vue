@@ -1,31 +1,50 @@
 <template>
   <div class="container">
     <searchBar />
-    <div class="row">
-      <div class="col-12 col-md-8 test">
-        {{ thisDayMidday[0] }}
+    <div v-if="typeof weather.main != 'undefined'" class="wrapper">
+      <div class="row">
+        <div class="col-12 col-md-8 test">
+          <div class="row">
+            <div class="col-6 text-right test">
+              <img :src="theIcon(thisDayMidday[0].weather[0].icon)" alt="weather icon" width="100" height="100">
+            </div>
+            <div class="col-6 text-left test">
+              {{ thisDayMidday[0].weather[0].main }}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              {{ Math.round(thisDayMidday[0].main.temp) }}°c
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-4 test">
+          <div class="row">
+            <ForecastThreeHourly
+              v-for="forecast of thisDayForecasts"
+              :key="forecast.id"
+              :forecast="forecast"
+            />
+          </div>
+        </div>
       </div>
-      <div class="col-12 col-md-4 test">
-        <ForecastThreeHourly
-          v-for="forecast of thisDayForecasts"
+
+      <div class="row">
+        <div class="col-2">
+          <nuxt-link to="/">
+            <h5>Today</h5>
+            <img :src="theIcon(weather.weather[0].icon)" alt="weather icon" class="daily-icons">
+          </nuxt-link>
+        </div>
+        <!-- daily forecast component  -->
+        <ForecastDaily
+          v-for="forecast of dailyMidday"
           :key="forecast.id"
           :forecast="forecast"
+          :day="theWeekday(forecast.dt)"
+          :date="forecast.dt_txt"
         />
       </div>
-    </div>
-
-    <div class="row">
-      <nuxt-link to="/">
-        <h1>Today</h1>
-      </nuxt-link>
-      <!-- daily forecast component  -->
-      <ForecastDaily
-        v-for="forecast of dailyMidday"
-        :key="forecast.id"
-        :forecast="forecast"
-        :day="theWeekday(forecast.dt)"
-        :date="forecast.dt_txt"
-      />
     </div>
   </div>
 </template>
@@ -43,6 +62,9 @@ export default {
     ForecastThreeHourly
   },
   computed: {
+    weather () {
+      return this.$store.state.weather
+    },
     forecasts () {
       return this.$store.state.forecasts
     },
@@ -66,6 +88,10 @@ export default {
       const days = ['Sun', 'Mon', 'Tues', 'Weds', 'Thurs', 'Fri', 'Sat']
       const weekday = new Date(timestamp * 1000).getDay()
       return days[weekday]
+    },
+    // build url for weather icons
+    theIcon (icon) {
+      return 'http://openweathermap.org/img/wn/' + icon + '@2x.png'
     }
   }
 }

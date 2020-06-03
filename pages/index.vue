@@ -1,41 +1,50 @@
 <template>
-  <!-- <div class="container" :class="typeof weather.main != 'undefined' && weather.main.temp > 16 ? 'warm' : ''"> -->
   <div class="container">
     <searchBar />
-
-    <div v-if="typeof weather.main != 'undefined'" class="row weather-wrap">
-      <div class="col-12 col-md-8 test">
-        <div class="weather-box">
-          <div class="temp">
-            {{ Math.round(weather.main.temp) }}°c
+    <div v-if="typeof weather.main != 'undefined'" class="wrapper">
+      <div class="row">
+        <div class="col-12 col-md-8 test">
+          <div class="row">
+            <div class="col-6 text-right test">
+              <img :src="theIcon(weather.weather[0].icon)" alt="weather icon" width="100" height="100">
+            </div>
+            <div class="col-6 text-left test">
+              {{ weather.weather[0].main }}
+            </div>
           </div>
-          <div class="weather">
-            {{ weather.weather[0].main }}
-            <img :src="theIcon(weather.weather[0].icon)" alt="weather icon" width="200" height="200">
+          <div class="row">
+            <div class="col-12">
+              {{ Math.round(weather.main.temp) }}°c
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-4 test">
+          <div class="row">
+            <ForecastThreeHourly
+              v-for="forecast of threeHourlyToday"
+              :key="forecast.id"
+              :forecast="forecast"
+            />
           </div>
         </div>
       </div>
-      <div class="col-12 col-md-4 test">
-        <ForecastThreeHourly
-          v-for="forecast of threeHourlyToday"
+
+      <div class="row">
+        <div class="col-2">
+          <nuxt-link to="/">
+            <h5>Today</h5>
+            <img :src="theIcon(weather.weather[0].icon)" alt="weather icon" class="daily-icons">
+          </nuxt-link>
+        </div>
+        <!-- daily forecast component  -->
+        <ForecastDaily
+          v-for="forecast of dailyMidday"
           :key="forecast.id"
           :forecast="forecast"
+          :day="theWeekday(forecast.dt)"
+          :date="forecast.dt_txt"
         />
       </div>
-    </div>
-
-    <div class="row">
-      <nuxt-link to="/">
-        <h1>Today</h1>
-      </nuxt-link>
-      <!-- daily forecast component  -->
-      <ForecastDaily
-        v-for="forecast of dailyMidday"
-        :key="forecast.id"
-        :forecast="forecast"
-        :day="theWeekday(forecast.dt)"
-        :date="forecast.dt_txt"
-      />
     </div>
   </div>
 </template>
@@ -122,6 +131,7 @@ export default {
 
 .test{
   border: 1px solid red;
+  transition: 1s ease-in;
 }
 * {
   margin: 0;
@@ -131,55 +141,5 @@ export default {
 body {
   font-family: 'montserrat', sans-serif;
 }
-#app {
-  background-image: url('../assets/cold-bg.jpg');
-  background-size: cover;
-  background-position: bottom;
-  transition: 0.4s;
-}
-#app.warm {
-  background-image: url('../assets/warm-bg.jpg');
-}
-main {
-  min-height: 100vh;
-  padding: 25px;
-  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.75));
-}
 
-.location-box .location {
-  color: #FFF;
-  font-size: 32px;
-  font-weight: 500;
-  text-align: center;
-  text-shadow: 1px 3px rgba(0, 0, 0, 0.25);
-}
-.location-box .date {
-  color: #FFF;
-  font-size: 20px;
-  font-weight: 300;
-  font-style: italic;
-  text-align: center;
-}
-.weather-box {
-  text-align: center;
-}
-.weather-box .temp {
-  display: inline-block;
-  padding: 10px 25px;
-  color: #FFF;
-  font-size: 102px;
-  font-weight: 900;
-  text-shadow: 3px 6px rgba(0, 0, 0, 0.25);
-  background-color:rgba(255, 255, 255, 0.25);
-  border-radius: 16px;
-  margin: 30px 0px;
-  box-shadow: 3px 6px rgba(0, 0, 0, 0.25);
-}
-.weather-box .weather {
-  color: #FFF;
-  font-size: 48px;
-  font-weight: 700;
-  font-style: italic;
-  text-shadow: 3px 6px rgba(0, 0, 0, 0.25);
-}
 </style>

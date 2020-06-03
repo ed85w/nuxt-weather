@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="col-12 d-flex align-items-center p-2 search-box" :class="typeof weather.main != 'undefined' ? 'top-screen' : 'mid-screen'">
+    <div class="col-12 d-flex align-items-center p-3 search-box" :class="typeof weather.main != 'undefined' ? 'top-screen' : 'mid-screen'">
       <input
         id="queryInput"
         v-model="query"
@@ -64,11 +64,27 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+
 .search-box {
   width: 100%;
-  margin-bottom: 30px;
   transition: 1.5s;
+
+  .search-bar {
+    display: block;
+    width: 100%;
+    padding: 7px 10px;
+    color: #313131;
+    font-size: 20px;
+    appearance: none;
+    border:none;
+    outline: none;
+    background: none;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25);
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 0px 16px 0px 16px;
+    transition: 0.4s;
+  }
 }
 .search-box.mid-screen{
   height: 100vh;
@@ -76,21 +92,7 @@ export default {
 .search-box.top-screen{
   height: auto;
 }
-.search-box .search-bar {
-  display: block;
-  width: 100%;
-  padding: 10px;
-  color: #313131;
-  font-size: 20px;
-  appearance: none;
-  border:none;
-  outline: none;
-  background: none;
-  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25);
-  background-color: rgba(255, 255, 255, 0.5);
-  border-radius: 0px 16px 0px 16px;
-  transition: 0.4s;
-}
+
 .search-box .search-bar:focus {
   box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.25);
   background-color: rgba(255, 255, 255, 0.75);

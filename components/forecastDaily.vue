@@ -1,10 +1,10 @@
 <template>
-  <nuxt-link :to="{path: '/' + date.slice(0, 10)}">
-    <div class="col">
+  <div class="col-2 p-0 test">
+    <nuxt-link :to="{path: '/' + date.slice(0, 10)}">
       <h5>{{ theWeekday(forecast.dt) }}</h5>
-      <img :src="theIcon(forecast.weather[0].icon)" alt="weather icon" width="50" height="50">
-    </div>
-  </nuxt-link>
+      <img :src="theIcon(forecast.weather[0].icon)" alt="weather icon" class="daily-icons">
+    </nuxt-link>
+  </div>
 </template>
 
 <script>
@@ -39,5 +39,9 @@ export default {
 </script>
 
 <style>
+
+.daily-icons{
+  width: 15vw;
+}
 
 </style>

@@ -26,7 +26,7 @@ export const mutations = {
 
 export const actions = {
   async setForecasts ({ commit }) {
-    const { data } = await axios.get(`${this.state.url_base}forecast?q=${this.state.query}&appid=${this.state.api_key}`)
+    const { data } = await axios.get(`${this.state.url_base}forecast?q=${this.state.query}&units=metric&appid=${this.state.api_key}`)
     commit('SET_FORECASTS', data)
   },
   async setWeather ({ commit }) {

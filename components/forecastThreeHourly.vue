@@ -1,6 +1,7 @@
 <template>
-  <div>
-    <img :src="theIcon(forecast.weather[0].icon)" alt="weather icon" width="50" height="50">
+  <div class="col p-0 text-center test">
+    <p>{{ forecast.dt_txt.slice(11,16) }}</p>
+    <img :src="theIcon(forecast.weather[0].icon)" alt="weather icon" class="hourly-icons">
   </div>
 </template>
 
@@ -23,5 +24,9 @@ export default {
 </script>
 
 <style>
+
+.hourly-icons{
+  width: 10vw;
+}
 
 </style>
