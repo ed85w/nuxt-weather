@@ -141,5 +141,6 @@ export default {
 body {
   font-family: 'montserrat', sans-serif;
 }
-
+.wrapper{
+}
 </style>

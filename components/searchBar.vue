@@ -68,7 +68,7 @@ export default {
 
 .search-box {
   width: 100%;
-  transition: 1.5s;
+  transition: 1.5s ease-in-out;
 
   .search-bar {
     display: block;
@@ -90,7 +90,7 @@ export default {
   height: 100vh;
 }
 .search-box.top-screen{
-  height: auto;
+  height: 50px;
 }
 
 .search-box .search-bar:focus {

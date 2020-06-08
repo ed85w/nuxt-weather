@@ -1,5 +1,5 @@
 <template>
-  <div class="col p-0 text-center test">
+  <div class="col col-md-12 p-0 text-center test">
     <p>{{ forecast.dt_txt.slice(11,16) }}</p>
     <img :src="theIcon(forecast.weather[0].icon)" alt="weather icon" class="hourly-icons">
   </div>
