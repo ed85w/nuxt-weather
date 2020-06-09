@@ -74,29 +74,7 @@ export default {
     dailyMidday () {
       return this.$store.getters.dailyMidday
     }
-    // query: {
-    //   get () {
-    //     return this.$store.state.query
-    //   },
-    //   set (value) {
-    //     this.$store.commit('updateQuery', value)
-    //   }
-    // }
   },
-  // mounted () {
-  //   // google places for search input - fires api calls on place change
-  //   const searchElement = document.querySelector('[data-city-search]')
-  //   // eslint-disable-next-line no-undef
-  //   const searchBox = new google.maps.places.SearchBox(searchElement)
-  //   searchBox.addListener('places_changed', () => {
-  //     const place = searchBox.getPlaces()[0]
-  //     // eslint-disable-next-line no-console
-  //     this.$store.commit('updateQuery', place.formatted_address)
-  //     this.$store.dispatch('setToday')
-  //     this.$store.dispatch('setWeather')
-  //     this.$store.dispatch('setForecasts')
-  //   })
-  // },
   methods: {
     // updateQuery (e) {
     //   this.$store.commit('updateQuery', e.target.value)
