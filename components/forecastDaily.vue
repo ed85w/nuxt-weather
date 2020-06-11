@@ -1,8 +1,15 @@
 <template>
-  <div class="col-2 p-0 test">
+  <div class="col-2 p-0 text-center test">
     <nuxt-link :to="{path: '/' + date.slice(0, 10)}">
       <h5>{{ theWeekday(forecast.dt) }}</h5>
-      <img :src="theIcon(forecast.weather[0].icon)" alt="weather icon" class="daily-icons">
+      <div class="row">
+        <div class="col-12 col-md-6 text-center">
+          <img :src="theIcon(forecast.weather[0].icon)" alt="weather icon" class="daily-icons">
+        </div>
+        <div class="col-12 col-md-6 text-center">
+          <p>{{ Math.round(forecast.main.temp) }}°c</p>
+        </div>
+      </div>
     </nuxt-link>
   </div>
 </template>
@@ -41,7 +48,7 @@ export default {
 <style>
 
 .daily-icons{
-  width: 15vw;
+  width: 10vw;
 }
 
 </style>

@@ -3,47 +3,57 @@
     <searchBar />
     <div v-if="typeof weather.main != 'undefined'" class="wrapper">
       <div class="row">
-        <div class="col-12 col-md-8 test">
+        <div class="col-12 col-md-5 test">
           <div class="row">
-            <div class="col-6 text-right test">
+            <div class="col-6 col-md-12 text-right text-md-center test">
               <img :src="theIcon(thisDayMidday[0].weather[0].icon)" alt="weather icon" width="100" height="100">
             </div>
-            <div class="col-6 text-left test">
-              {{ thisDayMidday[0].weather[0].main }}
+            <div class="col-6 col-md-12 d-flex align-content-center flex-wrap test">
+              <div class="col-12 text-left text-md-center test">
+                <h1>{{ Math.round(thisDayMidday[0].main.temp) }}°c</h1>
+              </div>
+              <div class="col-12 text-left text-md-center test">
+                {{ thisDayMidday[0].weather[0].main }}
+              </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col-12">
-              {{ Math.round(thisDayMidday[0].main.temp) }}°c
+        </div>
+        <div class="col-12 col-md-7 p-0 test">
+          <div class="col-12 test">
+            <div class="row">
+              <ForecastThreeHourly
+                v-for="forecast of thisDayForecasts"
+                :key="forecast.id"
+                :forecast="forecast"
+              />
+            </div>
+          </div>
+          <div class="col-12 test">
+            <div class="row">
+              <div class="col-2">
+                <nuxt-link to="/">
+                  <h5>Today</h5>
+                  <div class="row">
+                    <div class="col-12 col-md-6 text-center">
+                      <img :src="theIcon(weather.weather[0].icon)" alt="weather icon" class="daily-icons">
+                    </div>
+                    <div class="col-12 col-md-6 text-center">
+                      <p>{{ Math.round(weather.main.temp) }}°c</p>
+                    </div>
+                  </div>
+                </nuxt-link>
+              </div>
+              <!-- daily forecast component  -->
+              <ForecastDaily
+                v-for="forecast of dailyMidday"
+                :key="forecast.id"
+                :forecast="forecast"
+                :day="theWeekday(forecast.dt)"
+                :date="forecast.dt_txt"
+              />
             </div>
           </div>
         </div>
-        <div class="col-12 col-md-4 test">
-          <div class="row">
-            <ForecastThreeHourly
-              v-for="forecast of thisDayForecasts"
-              :key="forecast.id"
-              :forecast="forecast"
-            />
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-2">
-          <nuxt-link to="/">
-            <h5>Today</h5>
-            <img :src="theIcon(weather.weather[0].icon)" alt="weather icon" class="daily-icons">
-          </nuxt-link>
-        </div>
-        <!-- daily forecast component  -->
-        <ForecastDaily
-          v-for="forecast of dailyMidday"
-          :key="forecast.id"
-          :forecast="forecast"
-          :day="theWeekday(forecast.dt)"
-          :date="forecast.dt_txt"
-        />
       </div>
     </div>
   </div>

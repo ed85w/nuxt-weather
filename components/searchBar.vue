@@ -10,7 +10,7 @@
         data-city-search
       >
     </div>
-    <div class="col-12 text-center" :class="typeof weather.main != 'undefined' ? 'd-block' : 'd-none'">
+    <div class="col-12 text-center date-holder" :class="typeof weather.main != 'undefined' ? 'd-block' : 'd-none'">
       <h5>{{ todayBuilder() }}</h5>
     </div>
   </div>
@@ -90,7 +90,7 @@ export default {
   height: 100vh;
 }
 .search-box.top-screen{
-  height: 50px;
+  height: 85px;
 }
 
 .search-box .search-bar:focus {
@@ -98,4 +98,10 @@ export default {
   background-color: rgba(255, 255, 255, 0.75);
   border-radius: 16px 0px 16px 0px;
 }
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px){
+
+}
+
 </style>
