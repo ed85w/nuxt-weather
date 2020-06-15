@@ -16,7 +16,7 @@ export default {
     ],
     // google places api script
     script: [
-      { src: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDMRWX-MkF2AqSCEWej3m0vmn2WHQhDtes&libraries=places' }
+      { src: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDMRWX-MkF2AqSCEWej3m0vmn2WHQhDtes&libraries=places&types=(regions)' }
     ]
   },
   /*

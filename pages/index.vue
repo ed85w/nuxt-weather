@@ -84,33 +84,9 @@ export default {
     dailyMidday () {
       return this.$store.getters.dailyMidday
     }
-    // query: {
-    //   get () {
-    //     return this.$store.state.query
-    //   },
-    //   set (value) {
-    //     this.$store.commit('updateQuery', value)
-    //   }
-    // }
   },
-  // mounted () {
-  //   // google places for search input - fires api calls on place change
-  //   const searchElement = document.querySelector('[data-city-search]')
-  //   // eslint-disable-next-line no-undef
-  //   const searchBox = new google.maps.places.SearchBox(searchElement)
-  //   searchBox.addListener('places_changed', () => {
-  //     const place = searchBox.getPlaces()[0]
-  //     // eslint-disable-next-line no-console
-  //     this.$store.commit('updateQuery', place.formatted_address)
-  //     this.$store.dispatch('setToday')
-  //     this.$store.dispatch('setWeather')
-  //     this.$store.dispatch('setForecasts')
-  //   })
-  // },
+
   methods: {
-    // updateQuery (e) {
-    //   this.$store.commit('updateQuery', e.target.value)
-    // },
     // create todays date in reader friendly format
     todayBuilder () {
       const d = new Date()
@@ -132,20 +108,22 @@ export default {
     theIcon (icon) {
       return 'http://openweathermap.org/img/wn/' + icon + '@2x.png'
     }
+  },
+  head () {
+    return {
+      bodyAttrs: {
+        class: typeof this.weather.main !== 'undefined' ? 'cold' : 'hot'
+      }
+    }
   }
 
 }
 </script>
 
 <style>
-
-.test{
+/* .test {
   border: 1px solid red;
-}
-.test1{
-  border: 1px solid red;
-  height: 300px;
-}
+} */
 * {
   margin: 0;
   padding: 0;
@@ -153,7 +131,24 @@ export default {
 }
 body {
   font-family: 'montserrat', sans-serif;
+  color: white;
+  height: 100vh;
+  /* cool night:  */
+  /* background: linear-gradient( 180deg,  rgba(62,5,116,1) -5.2%, rgba(41,14,151,1) -5.2%, rgba(216,68,148,1) 103.3% ); */
+  /* warm night  */
+  /* background: linear-gradient( 180deg,  rgba(69,16,129,1) 1.6%, rgba(154,58,127,1) 40.4%, rgba(242,173,78,1) 73.5%, rgba(250,209,152,1) 99.2% ); */
+  /* Warm day: */
+/* background: linear-gradient( 180deg,  rgba(202,50,50,1) 5.7%, rgba(252,195,12,1) 92.4% ); */
+
 }
+
+.warm-day {
+  background: linear-gradient( 180deg,  rgba(202,50,50,1) 5.7%, rgba(252,195,12,1) 92.4% );
+}
+.cool-day {
+  background: radial-gradient( circle farthest-corner at 10% 20%,  rgba(234,199,199,1) 0%, rgba(181,188,243,1) 99.3% );
+}
+
 .wrapper{
 }
 </style>
