@@ -6,7 +6,7 @@
         v-model="query"
         type="text"
         class="search-bar"
-        placeholder="Search..."
+        placeholder="Search for city"
         data-city-search
       >
     </div>
