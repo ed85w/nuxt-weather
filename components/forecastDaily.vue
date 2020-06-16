@@ -1,13 +1,11 @@
 <template>
   <div v-if="typeof forecast != 'undefined'" class="col-2 p-0 text-center test">
     <nuxt-link :to="{path: '/' + date.slice(0, 10)}">
-      <p>{{ theWeekday(forecast.dt) }}</p>
-      <div class="col-12 col-md-6 text-center">
-        <img :src="theIcon(forecast.weather[0].icon)" alt="weather icon" class="daily-icons">
-      </div>
-      <div class="col-12 col-md-6 text-center">
-        <p>{{ Math.round(forecast.main.temp) }}°c</p>
-      </div>
+      <p class="mb-1">
+        {{ theWeekday(forecast.dt) }}
+      </p>
+      <img :src="theIcon(forecast.weather[0].icon)" alt="weather icon" class="daily-icons">
+      <p>{{ Math.round(forecast.main.temp) }}°c</p>
     </nuxt-link>
   </div>
 </template>
@@ -31,7 +29,7 @@ export default {
   },
   methods: {
     theWeekday (timestamp) {
-      const days = ['Sun', 'Mon', 'Tues', 'Weds', 'Thurs', 'Fri', 'Sat']
+      const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
       const weekday = new Date(timestamp * 1000).getDay()
       return days[weekday]
     },

@@ -1,6 +1,9 @@
 <template>
   <div class="row">
-    <div class="col d-flex align-items-center p-3 search-box" :class="typeof weather.main != 'undefined' ? 'top-screen' : 'mid-screen'">
+    <div class="col d-flex flex-column justify-content-center text-center p-3 search-box" :class="typeof weather.main != 'undefined' ? 'top-screen' : 'mid-screen'">
+      <h2 class="mb-5">
+        Nuxt.js/Vue.js Weather
+      </h2>
       <input
         id="queryInput"
         v-model="query"
@@ -10,9 +13,6 @@
         data-city-search
       >
     </div>
-    <!-- <div class="col-12 col-md-7 text-center date-holder" :class="typeof weather.main != 'undefined' ? 'd-block' : 'd-none'">
-      <h5>{{ todayBuilder() }}</h5>
-    </div> -->
   </div>
 </template>
 
@@ -63,16 +63,6 @@ export default {
   methods: {
     updateQuery (e) {
       this.$store.commit('updateQuery', e.target.value)
-    },
-    todayBuilder () {
-      const d = new Date()
-      const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-      const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-      const day = days[d.getDay()]
-      const date = d.getDate()
-      const month = months[d.getMonth()]
-      const year = d.getFullYear()
-      return `${day} ${date} ${month} ${year}`
     }
   }
 
@@ -103,9 +93,19 @@ export default {
 }
 .search-box.mid-screen{
   height: 100vh;
+
+  h2 {
+    display: block;
+    transition: 2s ease-in-out;
+  }
+
 }
 .search-box.top-screen{
   height: 85px;
+
+  h2 {
+    display: none;
+  }
 }
 
 .search-box .search-bar:focus {

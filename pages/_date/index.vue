@@ -12,10 +12,10 @@
           <div class="row">
             <div class="col-12 col-md-5 test">
               <div class="row">
-                <div class="col-6 col-md-12 text-right text-md-center test">
+                <div class="col-7 col-md-12 text-right text-md-center test">
                   <img :src="theIcon(thisDayMidday[0].weather[0].icon)" alt="weather icon" class="main-icon">
                 </div>
-                <div class="col-6 col-md-12 d-flex align-content-center flex-wrap test">
+                <div class="col-5 col-md-12 pl-0 pl-md-3 d-flex align-content-center flex-wrap test">
                   <div class="col-12 text-left text-md-center test">
                     <h1>{{ Math.round(thisDayMidday[0].main.temp) }}°c</h1>
                   </div>
@@ -30,7 +30,7 @@
                 <div class="col-12 test">
                   <div class="row">
                     <div class="col-12 text-center">
-                      <h5>Three Hourly forecast</h5>
+                      <h5>3 Hourly Forecast</h5>
                     </div>
                     <ForecastThreeHourly
                       v-for="forecast of thisDayForecasts"
@@ -44,17 +44,13 @@
                     <div class="col-12 pt-4 text-center">
                       <h5>Daily Forecasts</h5>
                     </div>
-                    <div class="col-2 p-0 test">
+                    <div class="col-2 p-0 text-center test">
                       <nuxt-link to="/">
-                        <p>Today</p>
-                        <div class="row">
-                          <div class="col-12 col-md-6 text-center">
-                            <img :src="theIcon(weather.weather[0].icon)" alt="weather icon" class="daily-icons">
-                          </div>
-                          <div class="col-12 col-md-6 text-center">
-                            <p>{{ Math.round(weather.main.temp) }}°c</p>
-                          </div>
-                        </div>
+                        <p class="mb-1">
+                          Today
+                        </p>
+                        <img :src="theIcon(weather.weather[0].icon)" alt="weather icon" class="daily-icons">
+                        <p>{{ Math.round(weather.main.temp) }}°c</p>
                       </nuxt-link>
                     </div>
                     <!-- daily forecast component  -->
@@ -123,7 +119,7 @@ export default {
     },
     // get the weekday from unix
     theWeekday (timestamp) {
-      const days = ['Sun', 'Mon', 'Tues', 'Weds', 'Thurs', 'Fri', 'Sat']
+      const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
       const weekday = new Date(timestamp * 1000).getDay()
       return days[weekday]
     },
