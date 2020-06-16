@@ -1,7 +1,7 @@
 <template>
-  <div class="col-2 p-0 text-center test">
+  <div v-if="typeof forecast != 'undefined'" class="col-2 p-0 text-center test">
     <nuxt-link :to="{path: '/' + date.slice(0, 10)}">
-      <h5>{{ theWeekday(forecast.dt) }}</h5>
+      <p>{{ theWeekday(forecast.dt) }}</p>
       <div class="row">
         <div class="col-12 col-md-6 text-center">
           <img :src="theIcon(forecast.weather[0].icon)" alt="weather icon" class="daily-icons">
@@ -39,7 +39,7 @@ export default {
     },
     // build url for weather icons
     theIcon (icon) {
-      return 'http://openweathermap.org/img/wn/' + icon + '@2x.png'
+      return '/' + icon + '.svg'
     }
   }
 }
@@ -47,8 +47,21 @@ export default {
 
 <style>
 
+a {
+  color: white;
+}
+
 .daily-icons{
   width: 10vw;
+  filter: invert(99%) sepia(1%) saturate(7500%) hue-rotate(173deg) brightness(115%) contrast(101%); /*convert svg to white */
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px){
+  .daily-icons {
+    width: 5vw;
+
+  }
 }
 
 </style>

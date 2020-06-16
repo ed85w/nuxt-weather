@@ -1,56 +1,69 @@
 <template>
-  <div class="container">
-    <searchBar />
-    <div v-if="typeof weather.main != 'undefined'" class="wrapper">
-      <div class="row">
-        <div class="col-12 col-md-5 test">
+  <div class="container-fluid" :class="typeof weather.main != 'undefined' && weather.main.temp > 16 ? 'warm' : 'cool'">
+    <div class="row">
+      <div class="container">
+        <searchBar />
+        <div v-if="typeof weather.main != 'undefined'">
           <div class="row">
-            <div class="col-6 col-md-12 text-right text-md-center test">
-              <img :src="theIcon(weather.weather[0].icon)" alt="weather icon" width="100" height="100">
-            </div>
-            <div class="col-6 col-md-12 d-flex align-content-center flex-wrap test">
-              <div class="col-12 text-left text-md-center test">
-                <h1>{{ Math.round(weather.main.temp) }}°c</h1>
-              </div>
-              <div class="col-12 text-left text-md-center test">
-                {{ weather.weather[0].main }}
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-7 p-0 test">
-          <div class="col-12 test">
-            <div class="row">
-              <ForecastThreeHourly
-                v-for="forecast of threeHourlyToday"
-                :key="forecast.id"
-                :forecast="forecast"
-              />
-            </div>
-          </div>
-          <div class="col-12 test">
-            <div class="row">
-              <div class="col-2">
-                <nuxt-link to="/">
-                  <h5>Today</h5>
-                  <div class="row">
-                    <div class="col-12 col-md-6 text-center">
-                      <img :src="theIcon(weather.weather[0].icon)" alt="weather icon" class="daily-icons">
-                    </div>
-                    <div class="col-12 col-md-6 text-center">
-                      <p>{{ Math.round(weather.main.temp) }}°c</p>
-                    </div>
+            <div class="col-12 col-md-5 test">
+              <div class="row">
+                <div class="col-7 col-md-12 text-right text-md-center test">
+                  <img :src="theIcon(weather.weather[0].icon)" alt="weather icon" class="main-icon">
+                </div>
+                <div class="col-5 col-md-12 d-flex align-content-center flex-wrap test">
+                  <div class="col-12 text-left text-md-center test">
+                    <h1>{{ Math.round(weather.main.temp) }}°c</h1>
                   </div>
-                </nuxt-link>
+                  <div class="col-12 text-left text-md-center test">
+                    {{ weather.weather[0].main }}
+                  </div>
+                </div>
               </div>
-              <!-- daily forecast component  -->
-              <ForecastDaily
-                v-for="forecast of dailyMidday"
-                :key="forecast.id"
-                :forecast="forecast"
-                :day="theWeekday(forecast.dt)"
-                :date="forecast.dt_txt"
-              />
+            </div>
+            <div class="col-12 col-md-7 p-0 test">
+              <div class="row">
+                <div class="col-12 test">
+                  <div class="row">
+                    <div class="col-12 text-center">
+                      <h5>Three Hourly forecast</h5>
+                    </div>
+
+                    <ForecastThreeHourly
+                      v-for="forecast of threeHourlyToday"
+                      :key="forecast.id"
+                      :forecast="forecast"
+                    />
+                  </div>
+                </div>
+                <div class="col-12 test">
+                  <div class="row d-flex justify-content-around">
+                    <div class="col-12 pt-4 text-center">
+                      <h5>Daily Forecasts</h5>
+                    </div>
+                    <div class="col-2">
+                      <nuxt-link to="/">
+                        <p>Today</p>
+                        <div class="row">
+                          <div class="col-12 col-md-6 text-center">
+                            <img :src="theIcon(weather.weather[0].icon)" alt="weather icon" class="daily-icons">
+                          </div>
+                          <div class="col-12 col-md-6 text-center">
+                            <p>{{ Math.round(weather.main.temp) }}°c</p>
+                          </div>
+                        </div>
+                      </nuxt-link>
+                    </div>
+                    <!-- daily forecast component  -->
+                    <ForecastDaily
+                      v-for="forecast of dailyMidday"
+                      :key="forecast.id"
+                      :forecast="forecast"
+                      :day="theWeekday(forecast.dt)"
+                      :date="forecast.dt_txt"
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -106,17 +119,9 @@ export default {
     },
     // build url for weather icons
     theIcon (icon) {
-      return 'http://openweathermap.org/img/wn/' + icon + '@2x.png'
-    }
-  },
-  head () {
-    return {
-      bodyAttrs: {
-        class: typeof this.weather.main !== 'undefined' ? 'cold' : 'hot'
-      }
+      return '/' + icon + '.svg'
     }
   }
-
 }
 </script>
 
@@ -132,23 +137,28 @@ export default {
 body {
   font-family: 'montserrat', sans-serif;
   color: white;
-  height: 100vh;
-  /* cool night:  */
-  /* background: linear-gradient( 180deg,  rgba(62,5,116,1) -5.2%, rgba(41,14,151,1) -5.2%, rgba(216,68,148,1) 103.3% ); */
-  /* warm night  */
-  /* background: linear-gradient( 180deg,  rgba(69,16,129,1) 1.6%, rgba(154,58,127,1) 40.4%, rgba(242,173,78,1) 73.5%, rgba(250,209,152,1) 99.2% ); */
-  /* Warm day: */
-/* background: linear-gradient( 180deg,  rgba(202,50,50,1) 5.7%, rgba(252,195,12,1) 92.4% ); */
-
 }
-
-.warm-day {
+.container-fluid{
+  min-height: 100vh;
+}
+.warm{
   background: linear-gradient( 180deg,  rgba(202,50,50,1) 5.7%, rgba(252,195,12,1) 92.4% );
 }
-.cool-day {
+.cool{
   background: radial-gradient( circle farthest-corner at 10% 20%,  rgba(234,199,199,1) 0%, rgba(181,188,243,1) 99.3% );
 }
+.main-icon{
+  width: 85%;
+  filter: invert(99%) sepia(1%) saturate(7500%) hue-rotate(173deg) brightness(115%) contrast(101%); /*convert svg to white */
 
-.wrapper{
 }
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px){
+  .main-icon {
+    width: 50%;
+
+  }
+}
+
 </style>

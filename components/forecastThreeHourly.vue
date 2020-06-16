@@ -1,5 +1,5 @@
 <template>
-  <div class="col col-md-12 p-0 text-center test">
+  <div v-if="typeof forecast != 'undefined'" class="col col-md-12 p-0 text-center test">
     <div class="row">
       <div class="col-12 col-md-4 text-center">
         <p class="small m-0">
@@ -29,7 +29,7 @@ export default {
   methods: {
     // build url for weather icons
     theIcon (icon) {
-      return 'http://openweathermap.org/img/wn/' + icon + '@2x.png'
+      return '/' + icon + '.svg'
     }
   }
 }
@@ -40,12 +40,14 @@ export default {
 
 .hourly-icons{
   width: 10vw;
+  filter: invert(99%) sepia(1%) saturate(7500%) hue-rotate(173deg) brightness(115%) contrast(101%); /*convert svg to white */
 }
 
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px){
   .hourly-icons {
-    width: 5vw;
+    width: 20%;
+
   }
 }
 

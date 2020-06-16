@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="col-12 d-flex align-items-center p-3 search-box" :class="typeof weather.main != 'undefined' ? 'top-screen' : 'mid-screen'">
+    <div class="col d-flex align-items-center p-3 search-box" :class="typeof weather.main != 'undefined' ? 'top-screen' : 'mid-screen'">
       <input
         id="queryInput"
         v-model="query"
@@ -10,7 +10,7 @@
         data-city-search
       >
     </div>
-    <div class="col-12 text-center date-holder" :class="typeof weather.main != 'undefined' ? 'd-block' : 'd-none'">
+    <div class="col-12 col-md-7 text-center date-holder" :class="typeof weather.main != 'undefined' ? 'd-block' : 'd-none'">
       <h5>{{ todayBuilder() }}</h5>
     </div>
   </div>
@@ -83,7 +83,7 @@ export default {
 
 .search-box {
   width: 100%;
-  transition: 1.5s ease-in-out;
+  transition: 1.5s ease-out;
 
   .search-bar {
     display: block;
