@@ -3,6 +3,11 @@
     <div class="row">
       <div class="container">
         <searchBar />
+        <div class="row">
+          <div class="col-12 col-md-7 text-center date-holder" :class="typeof weather.main != 'undefined' ? 'd-block' : 'd-none'">
+            <h5>{{ todayBuilder() }}</h5>
+          </div>
+        </div>
         <div v-if="typeof weather.main != 'undefined'">
           <div class="row">
             <div class="col-12 col-md-5 test">
@@ -20,14 +25,13 @@
                 </div>
               </div>
             </div>
-            <div class="col-12 col-md-7 p-0 test">
+            <div class="col-12 col-md-7 test">
               <div class="row">
                 <div class="col-12 test">
                   <div class="row">
                     <div class="col-12 text-center">
                       <h5>Three Hourly forecast</h5>
                     </div>
-
                     <ForecastThreeHourly
                       v-for="forecast of threeHourlyToday"
                       :key="forecast.id"
@@ -40,7 +44,7 @@
                     <div class="col-12 pt-4 text-center">
                       <h5>Daily Forecasts</h5>
                     </div>
-                    <div class="col-2">
+                    <div class="col-2 p-0 test">
                       <nuxt-link to="/">
                         <p>Today</p>
                         <div class="row">
@@ -126,13 +130,8 @@ export default {
 </script>
 
 <style>
-/* .test {
+.test {
   border: 1px solid red;
-} */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
 }
 body {
   font-family: 'montserrat', sans-serif;

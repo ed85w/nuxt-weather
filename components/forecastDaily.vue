@@ -2,13 +2,11 @@
   <div v-if="typeof forecast != 'undefined'" class="col-2 p-0 text-center test">
     <nuxt-link :to="{path: '/' + date.slice(0, 10)}">
       <p>{{ theWeekday(forecast.dt) }}</p>
-      <div class="row">
-        <div class="col-12 col-md-6 text-center">
-          <img :src="theIcon(forecast.weather[0].icon)" alt="weather icon" class="daily-icons">
-        </div>
-        <div class="col-12 col-md-6 text-center">
-          <p>{{ Math.round(forecast.main.temp) }}°c</p>
-        </div>
+      <div class="col-12 col-md-6 text-center">
+        <img :src="theIcon(forecast.weather[0].icon)" alt="weather icon" class="daily-icons">
+      </div>
+      <div class="col-12 col-md-6 text-center">
+        <p>{{ Math.round(forecast.main.temp) }}°c</p>
       </div>
     </nuxt-link>
   </div>

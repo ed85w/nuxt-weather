@@ -10,9 +10,9 @@
         data-city-search
       >
     </div>
-    <div class="col-12 col-md-7 text-center date-holder" :class="typeof weather.main != 'undefined' ? 'd-block' : 'd-none'">
+    <!-- <div class="col-12 col-md-7 text-center date-holder" :class="typeof weather.main != 'undefined' ? 'd-block' : 'd-none'">
       <h5>{{ todayBuilder() }}</h5>
-    </div>
+    </div> -->
   </div>
 </template>
 

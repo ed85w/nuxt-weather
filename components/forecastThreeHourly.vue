@@ -1,15 +1,15 @@
 <template>
-  <div v-if="typeof forecast != 'undefined'" class="col col-md-12 p-0 text-center test">
+  <div v-if="typeof forecast != 'undefined'" class="col col-md-12 text-center test">
     <div class="row">
-      <div class="col-12 col-md-4 text-center">
+      <div class="col-12 col-md-4 p-1 text-center">
         <p class="small m-0">
           {{ forecast.dt_txt.slice(11,16) }}
         </p>
       </div>
-      <div class="col-12 col-md-4 text-center">
+      <div class="col-12 col-md-4 p-1 text-center">
         <img :src="theIcon(forecast.weather[0].icon)" alt="weather icon" class="hourly-icons">
       </div>
-      <div class="col-12 col-md-4 text-center">
+      <div class="col-12 col-md-4 p-1 text-center">
         <p class="m-0">
           {{ Math.round(forecast.main.temp) }}°c
         </p>
@@ -39,7 +39,7 @@ export default {
 <style>
 
 .hourly-icons{
-  width: 10vw;
+  width: 9vw;
   filter: invert(99%) sepia(1%) saturate(7500%) hue-rotate(173deg) brightness(115%) contrast(101%); /*convert svg to white */
 }
 

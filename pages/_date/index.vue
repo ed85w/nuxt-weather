@@ -3,7 +3,12 @@
     <div class="row">
       <div class="container">
         <searchBar />
-        <div v-if="typeof weather.main != 'undefined'" class="container">
+        <div class="row">
+          <div class="col-12 col-md-7 text-center date-holder" :class="typeof weather.main != 'undefined' ? 'd-block' : 'd-none'">
+            <h5>{{ theDay(thisDayMidday[0].dt) }}</h5>
+          </div>
+        </div>
+        <div v-if="typeof weather.main != 'undefined'">
           <div class="row">
             <div class="col-12 col-md-5 test">
               <div class="row">
@@ -20,10 +25,13 @@
                 </div>
               </div>
             </div>
-            <div class="col-12 col-md-7 p-0 test">
+            <div class="col-12 col-md-7 test">
               <div class="row">
                 <div class="col-12 test">
                   <div class="row">
+                    <div class="col-12 text-center">
+                      <h5>Three Hourly forecast</h5>
+                    </div>
                     <ForecastThreeHourly
                       v-for="forecast of thisDayForecasts"
                       :key="forecast.id"
@@ -33,9 +41,12 @@
                 </div>
                 <div class="col-12 test">
                   <div class="row d-flex justify-content-around">
-                    <div class="col-2">
+                    <div class="col-12 pt-4 text-center">
+                      <h5>Daily Forecasts</h5>
+                    </div>
+                    <div class="col-2 p-0 test">
                       <nuxt-link to="/">
-                        <h5>Today</h5>
+                        <p>Today</p>
                         <div class="row">
                           <div class="col-12 col-md-6 text-center">
                             <img :src="theIcon(weather.weather[0].icon)" alt="weather icon" class="daily-icons">
@@ -99,6 +110,17 @@ export default {
     }
   },
   methods: {
+    // create the date in reader friendly format
+    theDay (timestamp) {
+      const d = new Date(timestamp * 1000)
+      const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+      const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+      const day = days[d.getDay()]
+      const date = d.getDate()
+      const month = months[d.getMonth()]
+      const year = d.getFullYear()
+      return `${day} ${date} ${month} ${year}`
+    },
     // get the weekday from unix
     theWeekday (timestamp) {
       const days = ['Sun', 'Mon', 'Tues', 'Weds', 'Thurs', 'Fri', 'Sat']
