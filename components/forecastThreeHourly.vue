@@ -7,7 +7,7 @@
         </p>
       </div>
       <div class="col-12 p-0 text-center">
-        <img :src="theIcon(forecast.weather[0].icon)" alt="weather icon" class="hourly-icons">
+        <img :src="this.$theIcon(forecast.weather[0].icon)" alt="weather icon" class="hourly-icons">
       </div>
       <div class="col-12 p-0 text-center">
         <p class="m-0">
@@ -24,12 +24,6 @@ export default {
     // eslint-disable-next-line vue/require-default-prop
     forecast: {
       type: Object
-    }
-  },
-  methods: {
-    // build url for weather icons
-    theIcon (icon) {
-      return '/' + icon + '.svg'
     }
   }
 }

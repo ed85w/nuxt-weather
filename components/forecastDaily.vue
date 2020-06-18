@@ -4,7 +4,7 @@
       <p class="mb-1">
         {{ theWeekday(forecast.dt) }}
       </p>
-      <img :src="theIcon(forecast.weather[0].icon)" alt="weather icon" class="daily-icons">
+      <img :src="this.$theIcon(forecast.weather[0].icon)" alt="weather icon" class="daily-icons">
       <p>{{ Math.round(forecast.main.temp) }}°c</p>
     </nuxt-link>
   </div>
@@ -32,10 +32,6 @@ export default {
       const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
       const weekday = new Date(timestamp * 1000).getDay()
       return days[weekday]
-    },
-    // build url for weather icons
-    theIcon (icon) {
-      return '/' + icon + '.svg'
     }
   }
 }
