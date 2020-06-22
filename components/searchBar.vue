@@ -80,17 +80,6 @@ export default {
   }
 }
 
-@-webkit-keyframes fadeOut {
-    0% { opacity: 1;}
-    99% { opacity: 0.01;width: 100%; height: 100%;}
-    100% { opacity: 0;width: 0; height: 0;}
-}
-@keyframes fadeOut {
-    0% { opacity: 1;}
-    99% { opacity: 0.01;width: 100%; height: 100%;}
-    100% { opacity: 0;width: 0; height: 0;}
-}
-
 .search-box.mid-screen{
   height: 100vh;
 
