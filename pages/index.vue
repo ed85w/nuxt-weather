@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid" :class="typeof weather.main != 'undefined' && weather.main.temp > 16 ? 'warm' : 'cool'">
+  <div class="container-fluid" :class="typeof weather.main != 'undefined' && weather.main.temp > 16 ? 'warm' : typeof weather.main!= 'undefined' && weather.main.temp <= 16 ? 'cool' : 'initial'">
     <div class="row">
       <div class="container">
         <searchBar />
@@ -128,11 +128,14 @@ body {
 .container-fluid{
   min-height: 100vh;
 }
+.initial {
+  // background-color: red;
+}
 .warm{
-  background: linear-gradient( 180deg,  rgba(202,50,50,1) 5.7%, rgba(252,195,12,1) 92.4% );
+  background-color: linear-gradient( 180deg,  rgba(202,50,50,1) 5.7%, rgba(252,195,12,1) 92.4% );
 }
 .cool{
-  background: radial-gradient( circle farthest-corner at 10% 20%,  rgba(234,199,199,1) 0%, rgba(181,188,243,1) 99.3% );
+  background-color: radial-gradient( circle farthest-corner at 10% 20%,  rgba(234,199,199,1) 0%, rgba(181,188,243,1) 99.3% );
 }
 .main-icon{
   width: 85%;

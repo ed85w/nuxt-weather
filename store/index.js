@@ -30,7 +30,10 @@ export const actions = {
     commit('SET_FORECASTS', data)
   },
   async setWeather ({ commit }) {
-    const { data } = await axios.get(`${this.state.url_base}weather?q=${this.state.query}&units=metric&APPID=${this.state.api_key}`)
+    const { data } = await axios.get(`${this.state.url_base}weather?q=${this.state.query}&units=metric&APPID=${this.state.api_key}`).catch(() => {
+      // simple error catch
+      alert('Unable to find forecast for this location, please try again')
+    })
     commit('SET_WEATHER', data)
   },
   // sets todays date in correct format for filters

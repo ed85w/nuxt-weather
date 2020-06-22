@@ -47,18 +47,6 @@ export default {
       this.$store.dispatch('setWeather')
       this.$store.dispatch('setForecasts')
     })
-
-    // or
-
-    // const searchBox = new google.maps.places.Autocomplete(searchElement, options)
-    // searchBox.addListener('places_changed', () => {
-    //   const place = searchBox.getPlaces()[0]
-    //   // eslint-disable-next-line no-console
-    //   this.$store.commit('updateQuery', place.formatted_address)
-    //   this.$store.dispatch('setToday')
-    //   this.$store.dispatch('setWeather')
-    //   this.$store.dispatch('setForecasts')
-    // })
   },
   methods: {
     updateQuery (e) {
