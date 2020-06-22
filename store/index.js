@@ -32,7 +32,7 @@ export const actions = {
   async setWeather ({ commit }) {
     const { data } = await axios.get(`${this.state.url_base}weather?q=${this.state.query}&units=metric&APPID=${this.state.api_key}`).catch(() => {
       // simple error catch
-      alert('Unable to find forecast for this location, please try again')
+      alert('Unable to find forecast for this location, please try a different location')
     })
     commit('SET_WEATHER', data)
   },

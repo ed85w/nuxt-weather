@@ -4,28 +4,28 @@
       <div class="container">
         <searchBar />
         <div v-if="typeof weather.main != 'undefined'">
-          <div class="row">
-            <div class="col-12 col-md-5 test">
+          <div class="row pt-md-3">
+            <div class="col-12 col-md-5">
               <div class="row">
                 <div class="col-12 text-center">
                   <h5>{{ theDay(thisDayMidday[0].dt) }}</h5>
                 </div>
-                <div class="col-7 col-md-12 text-right text-md-center test">
+                <div class="col-7 col-md-12 text-right text-md-center">
                   <img :src="this.$theIcon(thisDayMidday[0].weather[0].icon)" alt="weather icon" class="main-icon">
                 </div>
-                <div class="col-5 col-md-12 pl-0 pl-md-3 d-flex align-content-center flex-wrap test">
-                  <div class="col-12 text-left text-md-center test">
+                <div class="col-5 col-md-12 pl-0 pl-md-3 d-flex align-content-center flex-wrap">
+                  <div class="col-12 text-left text-md-center">
                     <h1>{{ Math.round(thisDayMidday[0].main.temp) }}°c</h1>
                   </div>
-                  <div class="col-12 text-left text-md-center test">
+                  <div class="col-12 text-left text-md-center">
                     <h5>{{ thisDayMidday[0].weather[0].main }}</h5>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col-12 col-md-7 test">
+            <div class="col-12 col-md-7 pr-md-5">
               <div class="row">
-                <div class="col-12 test">
+                <div class="col-12">
                   <div class="row">
                     <div class="col-12 text-center">
                       <h5>3 Hourly Forecast</h5>
@@ -37,12 +37,12 @@
                     />
                   </div>
                 </div>
-                <div class="col-12 test">
+                <div class="col-12">
                   <div class="row d-flex justify-content-around">
                     <div class="col-12 pt-4 text-center">
                       <h5>Daily Forecasts</h5>
                     </div>
-                    <div class="col-2 p-0 text-center test">
+                    <div class="col-2 p-0 text-center">
                       <nuxt-link to="/">
                         <p class="mb-1">
                           Today

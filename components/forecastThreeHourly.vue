@@ -33,7 +33,7 @@ export default {
 <style>
 
 .hourly-icons{
-  width: 9vw;
+  width: 8vw;
   filter: invert(99%) sepia(1%) saturate(7500%) hue-rotate(173deg) brightness(115%) contrast(101%); /*convert svg to white */
 }
 

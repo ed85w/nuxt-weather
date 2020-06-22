@@ -61,7 +61,7 @@ export default {
 
 .search-box {
   width: 100%;
-  transition: 1.5s ease-out;
+  transition: 1s ease-out;
 
   .search-bar {
     display: block;
@@ -79,12 +79,24 @@ export default {
     transition: 0.4s;
   }
 }
+
+@-webkit-keyframes fadeOut {
+    0% { opacity: 1;}
+    99% { opacity: 0.01;width: 100%; height: 100%;}
+    100% { opacity: 0;width: 0; height: 0;}
+}
+@keyframes fadeOut {
+    0% { opacity: 1;}
+    99% { opacity: 0.01;width: 100%; height: 100%;}
+    100% { opacity: 0;width: 0; height: 0;}
+}
+
 .search-box.mid-screen{
   height: 100vh;
 
   h2 {
     display: block;
-    transition: 2s ease-in-out;
+    color: #08003b;
   }
 
 }
@@ -94,6 +106,7 @@ export default {
   h2 {
     display: none;
   }
+
 }
 
 .search-box .search-bar:focus {

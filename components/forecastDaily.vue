@@ -14,9 +14,11 @@
 export default {
   name: 'ForecastDaily',
   props: {
-    // eslint-disable-next-line vue/require-default-prop
     forecast: {
-      type: Object
+      type: Object,
+      default () {
+        return {}
+      }
     },
     day: {
       type: String,

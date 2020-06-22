@@ -4,28 +4,28 @@
       <div class="container">
         <searchBar />
         <div v-if="typeof weather.main != 'undefined'">
-          <div class="row">
-            <div class="col-12 col-md-5 test">
+          <div class="row pt-md-3">
+            <div class="col-12 col-md-5">
               <div class="row">
                 <div class="col-12 text-center">
                   <h5>{{ todayBuilder() }}</h5>
                 </div>
-                <div class="col-7 col-md-12 text-right text-md-center test">
+                <div class="col-7 col-md-12 text-right text-md-center">
                   <img :src="this.$theIcon(weather.weather[0].icon)" alt="weather icon" class="main-icon">
                 </div>
-                <div class="col-5 col-md-12 pl-0 pl-md-3 d-flex align-content-center flex-wrap test">
-                  <div class="col-12 text-left text-md-center test">
+                <div class="col-5 col-md-12 pl-0 pl-md-3 d-flex align-content-center flex-wrap">
+                  <div class="col-12 text-left text-md-center">
                     <h1>{{ Math.round(weather.main.temp) }}°c</h1>
                   </div>
-                  <div class="col-12 text-left text-md-center test">
+                  <div class="col-12 text-left text-md-center">
                     <h5>{{ weather.weather[0].main }}</h5>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col-12 col-md-7 test">
+            <div class="col-12 col-md-7 pr-md-5">
               <div class="row">
-                <div class="col-12 test">
+                <div class="col-12">
                   <div class="row">
                     <div class="col-12 text-center">
                       <h5>3 Hourly Forecast</h5>
@@ -37,12 +37,12 @@
                     />
                   </div>
                 </div>
-                <div class="col-12 test">
+                <div class="col-12">
                   <div class="row d-flex justify-content-around">
                     <div class="col-12 pt-4 text-center">
                       <h5>Daily Forecasts</h5>
                     </div>
-                    <div class="col-2 p-0 text-center test">
+                    <div class="col-2 p-0 text-center">
                       <nuxt-link to="/">
                         <p class="mb-1">
                           Today
@@ -122,6 +122,7 @@ export default {
 // .test {
 //   border: 1px solid red;
 // }
+
 body {
   color: white;
 }
@@ -129,13 +130,13 @@ body {
   min-height: 100vh;
 }
 .initial {
-  // background-color: red;
+  background: url('/background-initial.jpg') center center/cover no-repeat;
 }
 .warm{
-  background-color: linear-gradient( 180deg,  rgba(202,50,50,1) 5.7%, rgba(252,195,12,1) 92.4% );
+  background: linear-gradient( 180deg,  rgba(202,50,50,1) 5.7%, rgba(252,195,12,1) 92.4% );
 }
 .cool{
-  background-color: radial-gradient( circle farthest-corner at 10% 20%,  rgba(234,199,199,1) 0%, rgba(181,188,243,1) 99.3% );
+  background: radial-gradient( circle farthest-corner at 10% 20%,  rgba(234,199,199,1) 0%, rgba(181,188,243,1) 99.3% );
 }
 .main-icon{
   width: 85%;
