@@ -4,7 +4,7 @@
       <div class="container">
         <searchBar />
         <div v-if="typeof weather.main != 'undefined'">
-          <div class="row pt-md-3">
+          <div class="row padded">
             <div class="col-12 col-md-5">
               <div class="row">
                 <div class="col-12 text-center">
@@ -118,10 +118,7 @@ export default {
 }
 </script>
 
-<style  lang="scss">
-// .test {
-//   border: 1px solid red;
-// }
+<style>
 
 body {
   color: white;
@@ -143,21 +140,30 @@ body {
   filter: invert(99%) sepia(1%) saturate(7500%) hue-rotate(173deg) brightness(115%) contrast(101%); /*convert svg to white */
 }
 
+.row.padded {
+  padding-top: 15%;
+}
+
 a:hover{
   color: black;
   text-decoration: none;
+}
 
-  .daily-icons {
+a:hover  .daily-icons {
     filter: none;
-  }
 }
 .nuxt-link-exact-active {
   color: black;
+}
 
-  .daily-icons {
+.nuxt-link-exact-active p.mb-1 {
+  text-decoration: underline;
+  text-underline-position: under;
+  text-decoration-thickness: 2px;
+}
+
+.nuxt-link-exact-active  .daily-icons {
     filter: none;
-  }
-
 }
 
 /* Medium devices (tablets, 768px and up) */

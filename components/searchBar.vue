@@ -53,17 +53,17 @@ export default {
       this.$store.commit('updateQuery', e.target.value)
     }
   }
-
 }
 </script>
 
-<style lang="scss">
+<style>
 
 .search-box {
   width: 100%;
   transition: 1s ease-out;
+}
 
-  .search-bar {
+.search-box  .search-bar {
     display: block;
     width: 100%;
     padding: 7px 10px;
@@ -77,25 +77,21 @@ export default {
     background-color: rgba(255, 255, 255, 0.5);
     border-radius: 0px 16px 0px 16px;
     transition: 0.4s;
-  }
 }
 
 .search-box.mid-screen{
   height: 100vh;
-
-  h2 {
+}
+.search-box.mid-screen h2 {
     display: block;
     color: #08003b;
-  }
-
 }
 .search-box.top-screen{
   height: 85px;
+}
 
-  h2 {
+.search-box.top-screen h2 {
     display: none;
-  }
-
 }
 
 .search-box .search-bar:focus {

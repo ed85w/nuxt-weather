@@ -4,7 +4,7 @@
       <div class="container">
         <searchBar />
         <div v-if="typeof weather.main != 'undefined'">
-          <div class="row pt-md-3">
+          <div class="row padded">
             <div class="col-12 col-md-5">
               <div class="row">
                 <div class="col-12 text-center">
